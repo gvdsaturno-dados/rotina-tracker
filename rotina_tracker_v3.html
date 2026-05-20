@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -1064,21 +1065,21 @@
                 };
 
                 // Enviar para Google Apps Script
-                const response = await fetch(scriptUrl, {
+                // Importante:
+                // Usamos mode: 'no-cors' e Content-Type text/plain para evitar erro de CORS
+                // ao publicar o HTML no GitHub Pages.
+                await fetch(scriptUrl, {
                     method: 'POST',
+                    mode: 'no-cors',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'text/plain;charset=utf-8'
                     },
                     body: JSON.stringify(dados)
                 });
 
-                const resultado = await response.json();
-
-                if (resultado.success) {
-                    mostrarMensagem('✅ Dados enviados para Google Sheets com sucesso!', 'success');
-                } else {
-                    mostrarMensagem(`❌ Erro ao enviar: ${resultado.error || 'Desconhecido'}`, 'error');
-                }
+                // Com no-cors, o navegador não consegue ler a resposta do Apps Script.
+                // Então consideramos como enviado se o fetch não gerar erro.
+                mostrarMensagem('✅ Envio realizado. Confira se a linha apareceu no Google Sheets.', 'success');
             } catch (error) {
                 console.error('Erro:', error);
                 mostrarMensagem(`❌ Erro na conexão: ${error.message}`, 'error');
