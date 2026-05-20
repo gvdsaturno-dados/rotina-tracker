@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotina Sustentável - Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #185FA5;
+            --primary-light: #E6F1FB;
+            --primary-dark: #042C53;
+            --accent: #0F6E56;
+            --accent-light: #E1F5EE;
+            --warning: #BA7517;
+            --warning-light: #FAEEDA;
+            --danger: #A32D2D;
+            --danger-light: #FCEBEB;
+            --success: #3B6D11;
+            --success-light: #EAF3DE;
+            --gray-light: #F1EFE8;
+            --gray-medium: #888780;
+            --gray-dark: #2C2C2A;
+            --border: #D3D1C7;
+            --text-primary: #2C2C2A;
+            --text-secondary: #5F5E5A;
+            --bg: #FFFFFF;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #B5D4F4;
+                --primary-light: #042C53;
+                --primary-dark: #E6F1FB;
+                --accent: #5DCAA5;
+                --accent-light: #085041;
+                --warning: #FAC775;
+                --warning-light: #412402;
+                --danger: #F7C1C1;
+                --danger-light: #501313;
+                --success: #97C459;
+                --success-light: #173404;
+                --gray-light: #2C2C2A;
+                --gray-medium: #888780;
+                --gray-dark: #F1EFE8;
+                --border: #5F5E5A;
+                --text-primary: #F1EFE8;
+                --text-secondary: #B4B2A9;
+                --bg: #1A1A18;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .config-box {
+            background: var(--warning-light);
+            border-left: 4px solid var(--warning);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .config-box {
+                background: var(--warning-light);
+                color: var(--gray-dark);
+            }
+        }
+
+        .config-box strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 14px;
+        }
+
+        .config-input {
+            display: flex;
+            gap: 8px;
+            margin-top: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .config-input input {
+            flex: 1;
+            min-width: 200px;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 13px;
+            background: var(--bg);
+            color: var(--text-primary);
+        }
+
+        .config-input button {
+            padding: 8px 16px;
+            background: var(--warning);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .config-input button:hover {
+            background: #8B5A0F;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: var(--primary-light);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .metric-card {
+                background: var(--primary-dark);
+                border-color: var(--primary);
+            }
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(24, 95, 165, 0.15);
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .day-section {
+            background: var(--gray-light);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--primary);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .day-section {
+                background: #2A2A28;
+            }
+        }
+
+        .day-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.25rem;
+            padding: 12px;
+            background: var(--bg);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .activity-item:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .activity-item:hover {
+                background: var(--primary-dark);
+            }
+        }
+
+        .activity-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .activity-item input[type="checkbox"]:checked + label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .activity-label {
+            font-size: 14px;
+            flex: 1;
+            cursor: pointer;
+            user-select: none;
+            color: var(--text-primary);
+            transition: color 0.2s ease;
+        }
+
+        .sleep-input-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .sleep-input-group label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .sleep-input-group input {
+            width: 70px;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            background: var(--bg);
+            color: var(--text-primary);
+        }
+
+        .meditacao-section {
+            background: var(--accent-light);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--accent);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .meditacao-section {
+                background: var(--accent-light);
+            }
+        }
+
+        .meditacao-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: var(--accent);
+        }
+
+        .meditacao-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .meditacao-day {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            background: var(--bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .meditacao-day input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        .meditacao-day label {
+            font-size: 13px;
+            cursor: pointer;
+            user-select: none;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .meditacao-stats {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .meditacao-stat {
+            text-align: center;
+        }
+
+        .meditacao-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .meditacao-stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .summary {
+            background: var(--accent-light);
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .summary {
+                background: var(--accent-light);
+                color: var(--gray-dark);
+            }
+        }
+
+        .summary h3 {
+            font-size: 16px;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            font-size: 14px;
+        }
+
+        .summary-value {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .status-good {
+            color: var(--success);
+        }
+
+        .status-warning {
+            color: var(--warning);
+        }
+
+        .status-danger {
+            color: var(--danger);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-send {
+            flex: 1;
+            min-width: 150px;
+            background: var(--success);
+            color: white;
+            border: 2px solid var(--success);
+        }
+
+        .btn-send:hover:not(:disabled) {
+            background: #2d5609;
+        }
+
+        .btn-send:disabled {
+            background: var(--gray-medium);
+            border-color: var(--gray-medium);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .btn-reset {
+            flex: 1;
+            min-width: 150px;
+            background: var(--danger-light);
+            color: var(--danger);
+            border: 2px solid var(--danger);
+        }
+
+        .btn-reset:hover {
+            background: var(--danger);
+            color: var(--bg);
+        }
+
+        .btn-export {
+            flex: 1;
+            min-width: 150px;
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-export:hover {
+            background: var(--primary-dark);
+        }
+
+        .status-message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 14px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .status-message.success {
+            background: var(--success-light);
+            color: var(--success);
+            display: block;
+            border-left: 4px solid var(--success);
+        }
+
+        .status-message.error {
+            background: var(--danger-light);
+            color: var(--danger);
+            display: block;
+            border-left: 4px solid var(--danger);
+        }
+
+        .status-message.info {
+            background: var(--primary-light);
+            color: var(--primary);
+            display: block;
+            border-left: 4px solid var(--primary);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-box {
+            background: var(--warning-light);
+            border-left: 4px solid var(--warning);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .info-box {
+                background: var(--warning-light);
+                color: var(--gray-dark);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0.75rem;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .metric-card {
+                padding: 1rem;
+            }
+
+            .metric-value {
+                font-size: 24px;
+            }
+
+            .day-section {
+                padding: 1rem;
+            }
+
+            .day-title {
+                font-size: 16px;
+            }
+
+            .activity-item {
+                gap: 10px;
+                padding: 10px;
+                margin-bottom: 1rem;
+            }
+
+            .activity-label {
+                font-size: 13px;
+            }
+
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .config-input {
+                flex-direction: column;
+            }
+
+            .config-input input {
+                width: 100%;
+            }
+        }
+
+        .fadeIn {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Rotina Sustentável</h1>
+            <p>Baseada em evidências para conciliar trabalho, pós e treinos</p>
+        </div>
+
+        <div class="config-box">
+            <strong>⚙️ Conectar com Google Sheets</strong>
+            Cole a URL do seu Google Apps Script (Web App URL)
+            <div class="config-input">
+                <input type="text" id="scriptUrl" placeholder="https://script.google.com/macros/d/.../usercontent" value="">
+                <button onclick="salvarConfiguracao()">Salvar URL</button>
+            </div>
+            <div id="statusMessage" class="status-message"></div>
+        </div>
+
+        <div class="info-box">
+            💡 <strong>Meta simples:</strong> Dormir ≥7h, completar 3-4 treinos, estudar diariamente, meditar 3x/semana. Consistência > perfeição.
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card fadeIn">
+                <div class="metric-label">Treinos A-D</div>
+                <div class="metric-value" id="treinos-count">0/4</div>
+            </div>
+            <div class="metric-card fadeIn">
+                <div class="metric-label">Corridas</div>
+                <div class="metric-value" id="corridas-count">0/3</div>
+            </div>
+            <div class="metric-card fadeIn">
+                <div class="metric-label">Blocos Estudo</div>
+                <div class="metric-value" id="estudo-count">0/7</div>
+            </div>
+            <div class="metric-card fadeIn">
+                <div class="metric-label">Meditação</div>
+                <div class="metric-value" id="meditacao-count">0/3</div>
+            </div>
+            <div class="metric-card fadeIn">
+                <div class="metric-label">Sono Médio</div>
+                <div class="metric-value" id="sono-avg">0h</div>
+            </div>
+        </div>
+
+        <!-- Segunda -->
+        <div class="day-section">
+            <div class="day-title">🌅 Segunda</div>
+            <div class="activity-item">
+                <input type="checkbox" id="seg-treino" onchange="saveAndUpdate()">
+                <label for="seg-treino" class="activity-label">06:10–07:00 Treino A</label>
+            </div>
+            <div class="activity-item">
+                <input type="checkbox" id="seg-estudo" onchange="saveAndUpdate()">
+                <label for="seg-estudo" class="activity-label">20:15–21:15 Estudo (até 1h)</label>
+            </div>
+            <div class="sleep-input-group">
+                <label>Sono (h):</label>
+                <input type="number" min="0" max="12" step="0.5" value="7.5" id="seg-sono" onchange="saveAndUpdate()">
+            </div>
+        </div>
+
+        <!-- Terça -->
+        <div class="day-section">
+            <div class="day-title">🏃 Terça</div>
+            <div class="activity-item">
+                <input type="checkbox" id="ter-corrida" onchange="saveAndUpdate()">
+                <label for="ter-corrida" class="activity-label">18:10–18:45 Corrida leve</label>
+            </div>
+            <div class="activity-item">
+                <input type="checkbox" id="ter-estudo" onchange="saveAndUpdate()">
+                <label for="ter-estudo" class="activity-label">20:30–21:30 Revisão curta/Estudo</label>
+            </div>
+            <div class="sleep-input-group">
+                <label>Sono (h):</label>
+                <input type="number" min="0" max="12" step="0.5" value="7.5" id="ter-sono" onchange="saveAndUpdate()">
+            </div>
+        </div>
+
+        <!-- Quarta -->
+        <div class="day-section">
+            <div class="day-title">💪 Quarta</div>
+            <div class="activity-item">
+                <input type="checkbox" id="qua-treino" onchange="saveAndUpdate()">
+                <label for="qua-treino" class="activity-label">06:10–07:05 Treino B (pernas)</label>
+            </div>
+            <div class="activity-item">
+                <input type="checkbox" id="qua-estudo" onchange="saveAndUpdate()">
+                <label for="qua-estudo" class="activity-label">20:15–21:15 Estudo focado</label>
+            </div>
+            <div class="sleep-input-group">
+                <label>Sono (h):</label>
+                <input type="number" min="0" max="12" step="0.5" value="7.5" id="qua-sono" onchange="saveAndUpdate()">
+            </div>
+        </div>
+
+        <!-- Quinta -->
+        <div class="day-section">
+            <div class="day-title">💪 Quinta</div>
+            <div class="activity-item">
+                <input type="checkbox" id="qui-treino" onchange="saveAndUpdate()">
+                <label for="qui-treino" class="activity-label">06:10–07:00 Treino C</label>
+            </div>
+            <div class="activity-item">
+                <input type="checkbox" id="qui-estudo" onchange="saveAndUpdate()">
+                <label for="qui-estudo" class="activity-label">20:15–21:15 Estudo</label>
+            </div>
+            <div class="sleep-input-group">
+                <label>Sono (h):</label>
+                <input type="number" min="0" max="12" step="0.5" value="7.5" id="qui-sono" onchange="saveAndUpdate()">
+            </div>
+        </div>
+
+        <!-- Sexta -->
+        <div class="day-section">
+            <div class="day-title">🏃 Sexta</div>
+            <div class="activity-item">
+                <input type="checkbox" id="sex-corrida" onchange="saveAndUpdate()">
+                <label for="sex-corrida" class="activity-label">18:10–18:45 Corrida leve</label>
+            </div>
+            <div class="activity-item">
+                <input type="checkbox" id="sex-estudo" onchange="saveAndUpdate()">
+                <label for="sex-estudo" class="activity-label">20:30–21:30 Flashcards/Revisão</label>
+            </div>
+            <div class="sleep-input-group">
+                <label>Sono (h):</label>
+                <input type="number" min="0" max="12" step="0.5" value="7.5" id="sex-sono" onchange="saveAndUpdate()">
+            </div>
+        </div>
+
+        <!-- Sábado -->
+        <div class="day-section">
+            <div class="day-title">💪 Sábado</div>
+            <div class="activity-item">
+                <input type="checkbox" id="sab-treino" onchange="saveAndUpdate()">
+                <label for="sab-treino" class="activity-label">09:00–09:50 Treino D</label>
+            </div>
+            <div class="activity-item">
+                <input type="checkbox" id="sab-estudo" onchange="saveAndUpdate()">
+                <label for="sab-estudo" class="activity-label">11:30–12:30 Estudo prático</label>
+            </div>
+            <div class="sleep-input-group">
+                <label>Sono (h):</label>
+                <input type="number" min="0" max="12" step="0.5" value="7.5" id="sab-sono" onchange="saveAndUpdate()">
+            </div>
+        </div>
+
+        <!-- Domingo -->
+        <div class="day-section">
+            <div class="day-title">🌄 Domingo</div>
+            <div class="activity-item">
+                <input type="checkbox" id="dom-corrida" onchange="saveAndUpdate()">
+                <label for="dom-corrida" class="activity-label">08:30–09:15 Corrida fácil (35-45 min)</label>
+            </div>
+            <div class="activity-item">
+                <input type="checkbox" id="dom-planejamento" onchange="saveAndUpdate()">
+                <label for="dom-planejamento" class="activity-label">18:00–18:20 Planejamento semanal</label>
+            </div>
+            <div class="activity-item">
+                <input type="checkbox" id="dom-revisao" onchange="saveAndUpdate()">
+                <label for="dom-revisao" class="activity-label">18:25–19:25 Revisão semanal</label>
+            </div>
+            <div class="sleep-input-group">
+                <label>Sono (h):</label>
+                <input type="number" min="0" max="12" step="0.5" value="7.5" id="dom-sono" onchange="saveAndUpdate()">
+            </div>
+        </div>
+
+        <!-- Meditação -->
+        <div class="meditacao-section">
+            <div class="meditacao-title">🧘 Meditação (Meta: 3x/semana)</div>
+            <div class="meditacao-grid">
+                <div class="meditacao-day">
+                    <input type="checkbox" id="med-seg" onchange="saveAndUpdate()">
+                    <label for="med-seg">Segunda</label>
+                </div>
+                <div class="meditacao-day">
+                    <input type="checkbox" id="med-ter" onchange="saveAndUpdate()">
+                    <label for="med-ter">Terça</label>
+                </div>
+                <div class="meditacao-day">
+                    <input type="checkbox" id="med-qua" onchange="saveAndUpdate()">
+                    <label for="med-qua">Quarta</label>
+                </div>
+                <div class="meditacao-day">
+                    <input type="checkbox" id="med-qui" onchange="saveAndUpdate()">
+                    <label for="med-qui">Quinta</label>
+                </div>
+                <div class="meditacao-day">
+                    <input type="checkbox" id="med-sex" onchange="saveAndUpdate()">
+                    <label for="med-sex">Sexta</label>
+                </div>
+                <div class="meditacao-day">
+                    <input type="checkbox" id="med-sab" onchange="saveAndUpdate()">
+                    <label for="med-sab">Sábado</label>
+                </div>
+                <div class="meditacao-day">
+                    <input type="checkbox" id="med-dom" onchange="saveAndUpdate()">
+                    <label for="med-dom">Domingo</label>
+                </div>
+            </div>
+            <div class="meditacao-stats">
+                <div class="meditacao-stat">
+                    <div class="meditacao-stat-value" id="meditacao-total">0</div>
+                    <div class="meditacao-stat-label">Completadas</div>
+                </div>
+                <div class="meditacao-stat">
+                    <div class="meditacao-stat-value" id="meditacao-restantes">3</div>
+                    <div class="meditacao-stat-label">Faltam</div>
+                </div>
+                <div class="meditacao-stat">
+                    <div class="meditacao-stat-value" id="meditacao-status">✗</div>
+                    <div class="meditacao-stat-label">Status</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resumo -->
+        <div class="summary">
+            <h3>📊 Resumo da Semana</h3>
+            <div class="summary-row">
+                <span>Status treinos:</span>
+                <span class="summary-value status-good" id="status-treinos">—</span>
+            </div>
+            <div class="summary-row">
+                <span>Status sono:</span>
+                <span class="summary-value status-good" id="status-sono">—</span>
+            </div>
+            <div class="summary-row">
+                <span>Status meditação:</span>
+                <span class="summary-value status-good" id="status-meditacao">—</span>
+            </div>
+            <div class="summary-row">
+                <span>Aderência ao ritual:</span>
+                <span class="summary-value" id="aderencia-ritual">—</span>
+            </div>
+            <div class="summary-row">
+                <span>Próximo ajuste:</span>
+                <span class="summary-value status-warning" id="proximo-ajuste">—</span>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-send" id="btnEnviar" onclick="enviarParaGoogleSheets()">📤 Enviar para Google Sheets</button>
+            <button class="btn-export" onclick="exportarDados()">📥 Exportar como JSON</button>
+            <button class="btn-reset" onclick="resetarSemana()">🔄 Limpar Tudo</button>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'rotina_tracker_dados';
+        const CONFIG_KEY = 'rotina_config';
+
+        function mostrarMensagem(texto, tipo = 'info') {
+            const msg = document.getElementById('statusMessage');
+            msg.textContent = texto;
+            msg.className = `status-message ${tipo}`;
+            setTimeout(() => {
+                msg.className = 'status-message';
+            }, 5000);
+        }
+
+        function salvarConfiguracao() {
+            const scriptUrl = document.getElementById('scriptUrl').value.trim();
+            if (!scriptUrl) {
+                mostrarMensagem('❌ Cole a URL do Apps Script', 'error');
+                return;
+            }
+            if (!scriptUrl.includes('script.google.com')) {
+                mostrarMensagem('❌ URL inválida. Deve começar com https://script.google.com', 'error');
+                return;
+            }
+            localStorage.setItem(CONFIG_KEY, JSON.stringify({ scriptUrl }));
+            mostrarMensagem('✅ URL do Apps Script salva com sucesso', 'success');
+        }
+
+        function carregarConfiguracao() {
+            const config = localStorage.getItem(CONFIG_KEY);
+            if (config) {
+                const { scriptUrl } = JSON.parse(config);
+                document.getElementById('scriptUrl').value = scriptUrl;
+            }
+        }
+
+        function salvarDados() {
+            const dados = {};
+            document.querySelectorAll('input[type="checkbox"], input[type="number"]').forEach(input => {
+                if (input.type === 'checkbox') {
+                    dados[input.id] = input.checked;
+                } else if (input.type === 'number') {
+                    dados[input.id] = parseFloat(input.value);
+                }
+            });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(dados));
+        }
+
+        function carregarDados() {
+            const dados = localStorage.getItem(STORAGE_KEY);
+            if (dados) {
+                const parsed = JSON.parse(dados);
+                Object.keys(parsed).forEach(key => {
+                    const elemento = document.getElementById(key);
+                    if (elemento) {
+                        if (elemento.type === 'checkbox') {
+                            elemento.checked = parsed[key];
+                        } else if (elemento.type === 'number') {
+                            elemento.value = parsed[key];
+                        }
+                    }
+                });
+            }
+        }
+
+        function atualizarMetricas() {
+            // Treinos A-D
+            const treinosAD = [
+                document.getElementById('seg-treino').checked,
+                document.getElementById('qua-treino').checked,
+                document.getElementById('qui-treino').checked,
+                document.getElementById('sab-treino').checked
+            ].filter(Boolean).length;
+            document.getElementById('treinos-count').textContent = `${treinosAD}/4`;
+
+            // Corridas
+            const corridas = [
+                document.getElementById('ter-corrida').checked,
+                document.getElementById('sex-corrida').checked,
+                document.getElementById('dom-corrida').checked
+            ].filter(Boolean).length;
+            document.getElementById('corridas-count').textContent = `${corridas}/3`;
+
+            // Blocos estudo
+            const estudo = [
+                document.getElementById('seg-estudo').checked,
+                document.getElementById('ter-estudo').checked,
+                document.getElementById('qua-estudo').checked,
+                document.getElementById('qui-estudo').checked,
+                document.getElementById('sex-estudo').checked,
+                document.getElementById('sab-estudo').checked,
+                document.getElementById('dom-revisao').checked
+            ].filter(Boolean).length;
+            document.getElementById('estudo-count').textContent = `${estudo}/7`;
+
+            // Meditação
+            const meditacao = [
+                document.getElementById('med-seg').checked,
+                document.getElementById('med-ter').checked,
+                document.getElementById('med-qua').checked,
+                document.getElementById('med-qui').checked,
+                document.getElementById('med-sex').checked,
+                document.getElementById('med-sab').checked,
+                document.getElementById('med-dom').checked
+            ].filter(Boolean).length;
+            document.getElementById('meditacao-count').textContent = `${meditacao}/3`;
+            document.getElementById('meditacao-total').textContent = meditacao;
+            const restantes = Math.max(0, 3 - meditacao);
+            document.getElementById('meditacao-restantes').textContent = restantes;
+            const statusMed = meditacao >= 3 ? '✓' : '✗';
+            document.getElementById('meditacao-status').textContent = statusMed;
+
+            // Sono
+            const sonoValues = [
+                parseFloat(document.getElementById('seg-sono').value) || 0,
+                parseFloat(document.getElementById('ter-sono').value) || 0,
+                parseFloat(document.getElementById('qua-sono').value) || 0,
+                parseFloat(document.getElementById('qui-sono').value) || 0,
+                parseFloat(document.getElementById('sex-sono').value) || 0,
+                parseFloat(document.getElementById('sab-sono').value) || 0,
+                parseFloat(document.getElementById('dom-sono').value) || 0
+            ].filter(v => v > 0);
+            const sonoMedia = sonoValues.length > 0 ? (sonoValues.reduce((a, b) => a + b, 0) / sonoValues.length).toFixed(1) : '0';
+            document.getElementById('sono-avg').textContent = `${sonoMedia}h`;
+
+            // Status treinos
+            let statusTreinos = 'Bom';
+            let classeTreinos = 'status-good';
+            if (treinosAD < 3) {
+                statusTreinos = 'Revisar';
+                classeTreinos = 'status-danger';
+            } else if (treinosAD < 4) {
+                statusTreinos = 'Adequado';
+                classeTreinos = 'status-warning';
+            }
+            document.getElementById('status-treinos').textContent = statusTreinos;
+            document.getElementById('status-treinos').className = `summary-value ${classeTreinos}`;
+
+            // Status sono
+            let statusSono = 'Bom';
+            let classeSono = 'status-good';
+            if (parseFloat(sonoMedia) < 6.5) {
+                statusSono = 'Revisar';
+                classeSono = 'status-danger';
+            } else if (parseFloat(sonoMedia) < 7) {
+                statusSono = 'Adequado';
+                classeSono = 'status-warning';
+            }
+            document.getElementById('status-sono').textContent = statusSono;
+            document.getElementById('status-sono').className = `summary-value ${classeSono}`;
+
+            // Status meditação
+            let statusMeditacao = meditacao >= 3 ? 'Atingida!' : 'Em progresso';
+            let classeMeditacao = meditacao >= 3 ? 'status-good' : 'status-warning';
+            document.getElementById('status-meditacao').textContent = statusMeditacao;
+            document.getElementById('status-meditacao').className = `summary-value ${classeMeditacao}`;
+
+            // Aderência
+            const aderenciaRitual = Math.round(((estudo + corridas + meditacao) / 17) * 100) + '%';
+            document.getElementById('aderencia-ritual').textContent = aderenciaRitual;
+
+            // Próximo ajuste
+            let ajuste = '✓ Tudo certo';
+            let classeAjuste = 'status-good';
+            if (parseFloat(sonoMedia) < 7) {
+                ajuste = 'Reduzir carga';
+                classeAjuste = 'status-warning';
+            }
+            if (treinosAD < 2) {
+                ajuste = 'Resgatar treinos';
+                classeAjuste = 'status-danger';
+            }
+            document.getElementById('proximo-ajuste').textContent = ajuste;
+            document.getElementById('proximo-ajuste').className = `summary-value ${classeAjuste}`;
+        }
+
+        function saveAndUpdate() {
+            salvarDados();
+            atualizarMetricas();
+        }
+
+        async function enviarParaGoogleSheets() {
+            const config = localStorage.getItem(CONFIG_KEY);
+            if (!config) {
+                mostrarMensagem('❌ Configure a URL do Apps Script primeiro', 'error');
+                return;
+            }
+
+            const { scriptUrl } = JSON.parse(config);
+            const btn = document.getElementById('btnEnviar');
+            btn.disabled = true;
+            btn.textContent = '📤 Enviando...';
+
+            try {
+                // Coletar dados
+                const hoje = new Date().toISOString().split('T')[0];
+                const dados = {
+                    data: hoje,
+                    treino_a: document.getElementById('seg-treino').checked ? 'Sim' : 'Não',
+                    treino_b: document.getElementById('qua-treino').checked ? 'Sim' : 'Não',
+                    treino_c: document.getElementById('qui-treino').checked ? 'Sim' : 'Não',
+                    treino_d: document.getElementById('sab-treino').checked ? 'Sim' : 'Não',
+                    corrida_ter: document.getElementById('ter-corrida').checked ? 'Sim' : 'Não',
+                    corrida_sex: document.getElementById('sex-corrida').checked ? 'Sim' : 'Não',
+                    corrida_dom: document.getElementById('dom-corrida').checked ? 'Sim' : 'Não',
+                    estudo_seg: document.getElementById('seg-estudo').checked ? 'Sim' : 'Não',
+                    estudo_ter: document.getElementById('ter-estudo').checked ? 'Sim' : 'Não',
+                    estudo_qua: document.getElementById('qua-estudo').checked ? 'Sim' : 'Não',
+                    estudo_qui: document.getElementById('qui-estudo').checked ? 'Sim' : 'Não',
+                    estudo_sex: document.getElementById('sex-estudo').checked ? 'Sim' : 'Não',
+                    estudo_dom: document.getElementById('dom-revisao').checked ? 'Sim' : 'Não',
+                    meditacao_seg: document.getElementById('med-seg').checked ? 'Sim' : 'Não',
+                    meditacao_ter: document.getElementById('med-ter').checked ? 'Sim' : 'Não',
+                    meditacao_qua: document.getElementById('med-qua').checked ? 'Sim' : 'Não',
+                    meditacao_qui: document.getElementById('med-qui').checked ? 'Sim' : 'Não',
+                    meditacao_sex: document.getElementById('med-sex').checked ? 'Sim' : 'Não',
+                    meditacao_sab: document.getElementById('med-sab').checked ? 'Sim' : 'Não',
+                    meditacao_dom: document.getElementById('med-dom').checked ? 'Sim' : 'Não',
+                    sono_seg: parseFloat(document.getElementById('seg-sono').value),
+                    sono_ter: parseFloat(document.getElementById('ter-sono').value),
+                    sono_qua: parseFloat(document.getElementById('qua-sono').value),
+                    sono_qui: parseFloat(document.getElementById('qui-sono').value),
+                    sono_sex: parseFloat(document.getElementById('sex-sono').value),
+                    sono_sab: parseFloat(document.getElementById('sab-sono').value),
+                    sono_dom: parseFloat(document.getElementById('dom-sono').value)
+                };
+
+                // Enviar para Google Apps Script
+                const response = await fetch(scriptUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dados)
+                });
+
+                const resultado = await response.json();
+
+                if (resultado.success) {
+                    mostrarMensagem('✅ Dados enviados para Google Sheets com sucesso!', 'success');
+                } else {
+                    mostrarMensagem(`❌ Erro ao enviar: ${resultado.error || 'Desconhecido'}`, 'error');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                mostrarMensagem(`❌ Erro na conexão: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '📤 Enviar para Google Sheets';
+            }
+        }
+
+        function resetarSemana() {
+            if (confirm('Tem certeza? Todos os dados serão apagados.')) {
+                document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+                document.querySelectorAll('input[type="number"]').forEach(el => el.value = '7.5');
+                salvarDados();
+                atualizarMetricas();
+                mostrarMensagem('✅ Semana limpa', 'success');
+            }
+        }
+
+        function exportarDados() {
+            const dados = localStorage.getItem(STORAGE_KEY);
+            const dataAtual = new Date().toLocaleDateString('pt-BR');
+            const json = JSON.stringify(JSON.parse(dados || '{}'), null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `rotina_${dataAtual.replace(/\//g, '-')}.json`;
+            a.click();
+            mostrarMensagem('✅ Dados exportados', 'success');
+        }
+
+        window.addEventListener('load', () => {
+            carregarConfiguracao();
+            carregarDados();
+            atualizarMetricas();
+        });
+    </script>
+</body>
+</html>
