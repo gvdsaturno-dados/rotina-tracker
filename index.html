@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -13,72 +12,106 @@
         }
 
         :root {
-            --primary: #185FA5;
-            --primary-light: #E6F1FB;
-            --primary-dark: #042C53;
-            --accent: #0F6E56;
-            --accent-light: #E1F5EE;
-            --warning: #BA7517;
-            --warning-light: #FAEEDA;
-            --danger: #A32D2D;
-            --danger-light: #FCEBEB;
-            --success: #3B6D11;
-            --success-light: #EAF3DE;
-            --gray-light: #F1EFE8;
-            --gray-medium: #888780;
-            --gray-dark: #2C2C2A;
-            --border: #D3D1C7;
-            --text-primary: #2C2C2A;
-            --text-secondary: #5F5E5A;
-            --bg: #FFFFFF;
+            --primary: #4F46E5;
+            --primary-light: rgba(79, 70, 229, 0.10);
+            --primary-dark: #312E81;
+            --accent: #06B6D4;
+            --accent-light: rgba(6, 182, 212, 0.12);
+            --warning: #F59E0B;
+            --warning-light: rgba(245, 158, 11, 0.13);
+            --danger: #EF4444;
+            --danger-light: rgba(239, 68, 68, 0.11);
+            --success: #10B981;
+            --success-light: rgba(16, 185, 129, 0.13);
+            --purple: #8B5CF6;
+            --purple-light: rgba(139, 92, 246, 0.12);
+            --pink: #EC4899;
+            --pink-light: rgba(236, 72, 153, 0.11);
+            --gray-light: rgba(255, 255, 255, 0.76);
+            --gray-medium: #94A3B8;
+            --gray-dark: #0F172A;
+            --border: rgba(148, 163, 184, 0.28);
+            --text-primary: #0F172A;
+            --text-secondary: #64748B;
+            --bg: #F8FAFC;
+            --surface: rgba(255, 255, 255, 0.82);
+            --surface-strong: #FFFFFF;
+            --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --primary: #B5D4F4;
-                --primary-light: #042C53;
-                --primary-dark: #E6F1FB;
-                --accent: #5DCAA5;
-                --accent-light: #085041;
-                --warning: #FAC775;
-                --warning-light: #412402;
-                --danger: #F7C1C1;
-                --danger-light: #501313;
-                --success: #97C459;
-                --success-light: #173404;
-                --gray-light: #2C2C2A;
-                --gray-medium: #888780;
-                --gray-dark: #F1EFE8;
-                --border: #5F5E5A;
-                --text-primary: #F1EFE8;
-                --text-secondary: #B4B2A9;
-                --bg: #1A1A18;
+                --primary: #818CF8;
+                --primary-light: rgba(129, 140, 248, 0.15);
+                --primary-dark: #C7D2FE;
+                --accent: #22D3EE;
+                --accent-light: rgba(34, 211, 238, 0.13);
+                --warning: #FBBF24;
+                --warning-light: rgba(251, 191, 36, 0.13);
+                --danger: #F87171;
+                --danger-light: rgba(248, 113, 113, 0.13);
+                --success: #34D399;
+                --success-light: rgba(52, 211, 153, 0.13);
+                --purple: #A78BFA;
+                --purple-light: rgba(167, 139, 250, 0.14);
+                --pink: #F472B6;
+                --pink-light: rgba(244, 114, 182, 0.13);
+                --gray-light: rgba(15, 23, 42, 0.72);
+                --gray-medium: #94A3B8;
+                --gray-dark: #F8FAFC;
+                --border: rgba(148, 163, 184, 0.22);
+                --text-primary: #F8FAFC;
+                --text-secondary: #CBD5E1;
+                --bg: #020617;
+                --surface: rgba(15, 23, 42, 0.78);
+                --surface-strong: #0F172A;
+                --shadow: 0 18px 45px rgba(0, 0, 0, 0.30);
             }
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-            background: var(--bg);
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            background:
+                radial-gradient(circle at 12% 0%, rgba(79, 70, 229, 0.18), transparent 34%),
+                radial-gradient(circle at 90% 8%, rgba(6, 182, 212, 0.16), transparent 30%),
+                linear-gradient(180deg, #F8FAFC 0%, #EEF2FF 52%, #F8FAFC 100%);
             color: var(--text-primary);
             line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background:
+                    radial-gradient(circle at 12% 0%, rgba(129, 140, 248, 0.20), transparent 34%),
+                    radial-gradient(circle at 90% 8%, rgba(34, 211, 238, 0.15), transparent 30%),
+                    linear-gradient(180deg, #020617 0%, #0F172A 52%, #020617 100%);
+            }
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 1.25rem;
         }
 
         .header {
             margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 2px solid var(--primary);
+            padding: 1.4rem 1.5rem;
+            border-bottom: 0;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
         }
 
         .header h1 {
-            font-size: 24px;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
+            font-size: 28px;
+            margin-bottom: 0.4rem;
+            font-weight: 800;
+            letter-spacing: -0.7px;
+            color: var(--text-primary);
         }
 
         .header p {
@@ -86,22 +119,21 @@
             font-size: 14px;
         }
 
-        .config-box {
+        .config-box,
+        .info-box {
             background: var(--warning-light);
             border-left: 4px solid var(--warning);
             padding: 1rem;
-            border-radius: 8px;
+            border-radius: 14px;
             font-size: 13px;
             color: var(--text-primary);
             margin-bottom: 1.5rem;
             line-height: 1.6;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            .config-box {
-                background: var(--warning-light);
-                color: var(--gray-dark);
-            }
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+            backdrop-filter: blur(10px);
         }
 
         .config-box strong {
@@ -117,31 +149,43 @@
             flex-wrap: wrap;
         }
 
+        .config-input input,
+        .sleep-input-group input {
+            border: 1px solid var(--border);
+            background: var(--surface-strong);
+            color: var(--text-primary);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
         .config-input input {
             flex: 1;
             min-width: 200px;
             padding: 8px 12px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 10px;
             font-size: 13px;
-            background: var(--bg);
-            color: var(--text-primary);
+        }
+
+        .config-input input:focus,
+        .sleep-input-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-light);
         }
 
         .config-input button {
             padding: 8px 16px;
             background: var(--warning);
-            color: white;
+            color: #111827;
             border: none;
-            border-radius: 6px;
+            border-radius: 10px;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             white-space: nowrap;
         }
 
         .config-input button:hover {
-            background: #8B5A0F;
+            filter: brightness(0.95);
         }
 
         .metrics-grid {
@@ -152,24 +196,20 @@
         }
 
         .metric-card {
-            background: var(--primary-light);
-            border: 1px solid var(--primary);
-            border-radius: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
             padding: 1.25rem;
             text-align: center;
             transition: all 0.3s ease;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            .metric-card {
-                background: var(--primary-dark);
-                border-color: var(--primary);
-            }
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
         }
 
         .metric-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(24, 95, 165, 0.15);
+            border-color: rgba(79, 70, 229, 0.42);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
         }
 
         .metric-label {
@@ -178,69 +218,119 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-bottom: 0.5rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .metric-value {
             font-size: 28px;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--primary);
+            letter-spacing: -0.5px;
         }
 
-        .day-section {
-            background: var(--gray-light);
-            border-radius: 16px;
+        .day-section,
+        .meditacao-section,
+        .leitura-section,
+        .ingles-section,
+        .summary {
+            background: var(--surface);
+            border-radius: 20px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
-            border-left: 5px solid var(--primary);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+            position: relative;
+            overflow: hidden;
         }
 
-        @media (prefers-color-scheme: dark) {
-            .day-section {
-                background: #2A2A28;
-            }
+        .day-section::before,
+        .meditacao-section::before,
+        .leitura-section::before,
+        .ingles-section::before,
+        .summary::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 5px;
+            background: var(--primary);
         }
 
-        .day-title {
+        .meditacao-section::before,
+        .summary::before { background: var(--accent); }
+        .leitura-section::before { background: var(--purple); }
+        .ingles-section::before { background: var(--pink); }
+
+        .day-title,
+        .meditacao-title,
+        .leitura-title,
+        .ingles-title {
             font-size: 18px;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 1.25rem;
             color: var(--text-primary);
+            letter-spacing: -0.2px;
         }
 
-        .activity-item {
+        .meditacao-title { color: var(--accent); }
+        .leitura-title { color: var(--purple); }
+        .ingles-title { color: var(--pink); }
+
+        .activity-item,
+        .meditacao-day,
+        .leitura-day,
+        .ingles-day {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 1.25rem;
-            padding: 12px;
-            background: var(--bg);
-            border-radius: 10px;
+            background: var(--surface-strong);
+            border-radius: 14px;
             border: 1px solid var(--border);
             transition: all 0.2s ease;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
         }
 
-        .activity-item:hover {
+        .activity-item {
+            margin-bottom: 1.25rem;
+            padding: 12px;
+        }
+
+        .activity-item:hover,
+        .meditacao-day:hover,
+        .leitura-day:hover,
+        .ingles-day:hover {
+            transform: translateY(-1px);
             border-color: var(--primary);
             background: var(--primary-light);
         }
 
-        @media (prefers-color-scheme: dark) {
-            .activity-item:hover {
-                background: var(--primary-dark);
-            }
+        .activity-item input[type="checkbox"],
+        .meditacao-day input[type="checkbox"],
+        .leitura-day input[type="checkbox"],
+        .ingles-day input[type="checkbox"] {
+            cursor: pointer;
+            accent-color: var(--primary);
         }
 
         .activity-item input[type="checkbox"] {
             width: 20px;
             height: 20px;
-            cursor: pointer;
-            accent-color: var(--primary);
         }
+
+        .meditacao-day input[type="checkbox"],
+        .leitura-day input[type="checkbox"],
+        .ingles-day input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .meditacao-day input[type="checkbox"] { accent-color: var(--accent); }
+        .leitura-day input[type="checkbox"] { accent-color: var(--purple); }
+        .ingles-day input[type="checkbox"] { accent-color: var(--pink); }
 
         .activity-item input[type="checkbox"]:checked + label {
             color: var(--primary);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .activity-label {
@@ -265,64 +355,35 @@
             font-size: 13px;
             color: var(--text-secondary);
             white-space: nowrap;
+            font-weight: 600;
         }
 
         .sleep-input-group input {
             width: 70px;
             padding: 8px 12px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 14px;
-            background: var(--bg);
-            color: var(--text-primary);
         }
 
-        .meditacao-section {
-            background: var(--accent-light);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-left: 5px solid var(--accent);
-        }
-
-        @media (prefers-color-scheme: dark) {
-            .meditacao-section {
-                background: var(--accent-light);
-            }
-        }
-
-        .meditacao-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 1.25rem;
-            color: var(--accent);
-        }
-
-        .meditacao-grid {
+        .meditacao-grid,
+        .leitura-grid,
+        .ingles-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 10px;
             margin-bottom: 1rem;
         }
 
-        .meditacao-day {
-            display: flex;
-            align-items: center;
+        .meditacao-day,
+        .leitura-day,
+        .ingles-day {
             gap: 8px;
             padding: 10px;
-            background: var(--bg);
-            border-radius: 8px;
-            border: 1px solid var(--border);
         }
 
-        .meditacao-day input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: var(--accent);
-        }
-
-        .meditacao-day label {
+        .meditacao-day label,
+        .leitura-day label,
+        .ingles-day label {
             font-size: 13px;
             cursor: pointer;
             user-select: none;
@@ -330,43 +391,39 @@
             flex: 1;
         }
 
-        .meditacao-stats {
+        .meditacao-stats,
+        .leitura-stats,
+        .ingles-stats {
             display: flex;
             justify-content: space-between;
             padding-top: 1rem;
             border-top: 1px solid var(--border);
         }
 
-        .meditacao-stat {
+        .meditacao-stat,
+        .leitura-stat,
+        .ingles-stat {
             text-align: center;
         }
 
-        .meditacao-stat-value {
+        .meditacao-stat-value,
+        .leitura-stat-value,
+        .ingles-stat-value {
             font-size: 20px;
-            font-weight: 700;
-            color: var(--accent);
+            font-weight: 800;
         }
 
-        .meditacao-stat-label {
+        .meditacao-stat-value { color: var(--accent); }
+        .leitura-stat-value { color: var(--purple); }
+        .ingles-stat-value { color: var(--pink); }
+
+        .meditacao-stat-label,
+        .leitura-stat-label,
+        .ingles-stat-label {
             font-size: 11px;
             color: var(--text-secondary);
             text-transform: uppercase;
-        }
-
-        .summary {
-            background: var(--accent-light);
-            border: 2px solid var(--accent);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            .summary {
-                background: var(--accent-light);
-                color: var(--gray-dark);
-            }
+            font-weight: 700;
         }
 
         .summary h3 {
@@ -384,21 +441,13 @@
         }
 
         .summary-value {
-            font-weight: 700;
+            font-weight: 800;
             color: var(--accent);
         }
 
-        .status-good {
-            color: var(--success);
-        }
-
-        .status-warning {
-            color: var(--warning);
-        }
-
-        .status-danger {
-            color: var(--danger);
-        }
+        .status-good { color: var(--success); }
+        .status-warning { color: var(--warning); }
+        .status-danger { color: var(--danger); }
 
         .button-group {
             display: flex;
@@ -410,24 +459,27 @@
         button {
             padding: 14px;
             border: none;
-            border-radius: 10px;
+            border-radius: 14px;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 800;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-1px);
         }
 
         .btn-send {
             flex: 1;
             min-width: 150px;
-            background: var(--success);
-            color: white;
-            border: 2px solid var(--success);
+            background: linear-gradient(135deg, var(--success), var(--accent));
+            color: #FFFFFF;
+            border: 1px solid rgba(16, 185, 129, 0.45);
+            box-shadow: 0 14px 28px rgba(16, 185, 129, 0.20);
         }
 
-        .btn-send:hover:not(:disabled) {
-            background: #2d5609;
-        }
+        .btn-send:hover:not(:disabled) { filter: brightness(0.98); }
 
         .btn-send:disabled {
             background: var(--gray-medium);
@@ -441,29 +493,28 @@
             min-width: 150px;
             background: var(--danger-light);
             color: var(--danger);
-            border: 2px solid var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.35);
         }
 
         .btn-reset:hover {
             background: var(--danger);
-            color: var(--bg);
+            color: #FFFFFF;
         }
 
         .btn-export {
             flex: 1;
             min-width: 150px;
-            background: var(--primary);
-            color: white;
-            border: 2px solid var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            color: #FFFFFF;
+            border: 1px solid rgba(79, 70, 229, 0.45);
+            box-shadow: 0 14px 28px rgba(79, 70, 229, 0.18);
         }
 
-        .btn-export:hover {
-            background: var(--primary-dark);
-        }
+        .btn-export:hover { filter: brightness(0.98); }
 
         .status-message {
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-bottom: 1rem;
             font-size: 14px;
             display: none;
@@ -492,32 +543,8 @@
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .info-box {
-            background: var(--warning-light);
-            border-left: 4px solid var(--warning);
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 13px;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            .info-box {
-                background: var(--warning-light);
-                color: var(--gray-dark);
-            }
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 640px) {
@@ -627,6 +654,14 @@
             <div class="metric-card fadeIn">
                 <div class="metric-label">Meditação</div>
                 <div class="metric-value" id="meditacao-count">0/3</div>
+            </div>
+            <div class="metric-card fadeIn">
+                <div class="metric-label">Leitura</div>
+                <div class="metric-value" id="leitura-count">0/5</div>
+            </div>
+            <div class="metric-card fadeIn">
+                <div class="metric-label">Inglês</div>
+                <div class="metric-value" id="ingles-count">0/2</div>
             </div>
             <div class="metric-card fadeIn">
                 <div class="metric-label">Sono Médio</div>
@@ -806,6 +841,104 @@
             </div>
         </div>
 
+        <!-- Leitura -->
+        <div class="leitura-section">
+            <div class="leitura-title">📚 Leitura (Meta: 5x/semana)</div>
+            <div class="leitura-grid">
+                <div class="leitura-day">
+                    <input type="checkbox" id="lei-seg" onchange="saveAndUpdate()">
+                    <label for="lei-seg">Segunda</label>
+                </div>
+                <div class="leitura-day">
+                    <input type="checkbox" id="lei-ter" onchange="saveAndUpdate()">
+                    <label for="lei-ter">Terça</label>
+                </div>
+                <div class="leitura-day">
+                    <input type="checkbox" id="lei-qua" onchange="saveAndUpdate()">
+                    <label for="lei-qua">Quarta</label>
+                </div>
+                <div class="leitura-day">
+                    <input type="checkbox" id="lei-qui" onchange="saveAndUpdate()">
+                    <label for="lei-qui">Quinta</label>
+                </div>
+                <div class="leitura-day">
+                    <input type="checkbox" id="lei-sex" onchange="saveAndUpdate()">
+                    <label for="lei-sex">Sexta</label>
+                </div>
+                <div class="leitura-day">
+                    <input type="checkbox" id="lei-sab" onchange="saveAndUpdate()">
+                    <label for="lei-sab">Sábado</label>
+                </div>
+                <div class="leitura-day">
+                    <input type="checkbox" id="lei-dom" onchange="saveAndUpdate()">
+                    <label for="lei-dom">Domingo</label>
+                </div>
+            </div>
+            <div class="leitura-stats">
+                <div class="leitura-stat">
+                    <div class="leitura-stat-value" id="leitura-total">0</div>
+                    <div class="leitura-stat-label">Completadas</div>
+                </div>
+                <div class="leitura-stat">
+                    <div class="leitura-stat-value" id="leitura-restantes">5</div>
+                    <div class="leitura-stat-label">Faltam</div>
+                </div>
+                <div class="leitura-stat">
+                    <div class="leitura-stat-value" id="leitura-status">✗</div>
+                    <div class="leitura-stat-label">Status</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inglês -->
+        <div class="ingles-section">
+            <div class="ingles-title">🎧 Inglês (Meta: 2x/semana)</div>
+            <div class="ingles-grid">
+                <div class="ingles-day">
+                    <input type="checkbox" id="ing-seg" onchange="saveAndUpdate()">
+                    <label for="ing-seg">Segunda</label>
+                </div>
+                <div class="ingles-day">
+                    <input type="checkbox" id="ing-ter" onchange="saveAndUpdate()">
+                    <label for="ing-ter">Terça</label>
+                </div>
+                <div class="ingles-day">
+                    <input type="checkbox" id="ing-qua" onchange="saveAndUpdate()">
+                    <label for="ing-qua">Quarta</label>
+                </div>
+                <div class="ingles-day">
+                    <input type="checkbox" id="ing-qui" onchange="saveAndUpdate()">
+                    <label for="ing-qui">Quinta</label>
+                </div>
+                <div class="ingles-day">
+                    <input type="checkbox" id="ing-sex" onchange="saveAndUpdate()">
+                    <label for="ing-sex">Sexta</label>
+                </div>
+                <div class="ingles-day">
+                    <input type="checkbox" id="ing-sab" onchange="saveAndUpdate()">
+                    <label for="ing-sab">Sábado</label>
+                </div>
+                <div class="ingles-day">
+                    <input type="checkbox" id="ing-dom" onchange="saveAndUpdate()">
+                    <label for="ing-dom">Domingo</label>
+                </div>
+            </div>
+            <div class="ingles-stats">
+                <div class="ingles-stat">
+                    <div class="ingles-stat-value" id="ingles-total">0</div>
+                    <div class="ingles-stat-label">Completadas</div>
+                </div>
+                <div class="ingles-stat">
+                    <div class="ingles-stat-value" id="ingles-restantes">2</div>
+                    <div class="ingles-stat-label">Faltam</div>
+                </div>
+                <div class="ingles-stat">
+                    <div class="ingles-stat-value" id="ingles-status">✗</div>
+                    <div class="ingles-stat-label">Status</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Resumo -->
         <div class="summary">
             <h3>📊 Resumo da Semana</h3>
@@ -820,6 +953,14 @@
             <div class="summary-row">
                 <span>Status meditação:</span>
                 <span class="summary-value status-good" id="status-meditacao">—</span>
+            </div>
+            <div class="summary-row">
+                <span>Status leitura:</span>
+                <span class="summary-value status-good" id="status-leitura">—</span>
+            </div>
+            <div class="summary-row">
+                <span>Status inglês:</span>
+                <span class="summary-value status-good" id="status-ingles">—</span>
             </div>
             <div class="summary-row">
                 <span>Aderência ao ritual:</span>
@@ -949,6 +1090,36 @@
             const statusMed = meditacao >= 3 ? '✓' : '✗';
             document.getElementById('meditacao-status').textContent = statusMed;
 
+            // Leitura
+            const leitura = [
+                document.getElementById('lei-seg').checked,
+                document.getElementById('lei-ter').checked,
+                document.getElementById('lei-qua').checked,
+                document.getElementById('lei-qui').checked,
+                document.getElementById('lei-sex').checked,
+                document.getElementById('lei-sab').checked,
+                document.getElementById('lei-dom').checked
+            ].filter(Boolean).length;
+            document.getElementById('leitura-count').textContent = `${leitura}/5`;
+            document.getElementById('leitura-total').textContent = leitura;
+            document.getElementById('leitura-restantes').textContent = Math.max(0, 5 - leitura);
+            document.getElementById('leitura-status').textContent = leitura >= 5 ? '✓' : '✗';
+
+            // Inglês
+            const ingles = [
+                document.getElementById('ing-seg').checked,
+                document.getElementById('ing-ter').checked,
+                document.getElementById('ing-qua').checked,
+                document.getElementById('ing-qui').checked,
+                document.getElementById('ing-sex').checked,
+                document.getElementById('ing-sab').checked,
+                document.getElementById('ing-dom').checked
+            ].filter(Boolean).length;
+            document.getElementById('ingles-count').textContent = `${ingles}/2`;
+            document.getElementById('ingles-total').textContent = ingles;
+            document.getElementById('ingles-restantes').textContent = Math.max(0, 2 - ingles);
+            document.getElementById('ingles-status').textContent = ingles >= 2 ? '✓' : '✗';
+
             // Sono
             const sonoValues = [
                 parseFloat(document.getElementById('seg-sono').value) || 0,
@@ -994,8 +1165,20 @@
             document.getElementById('status-meditacao').textContent = statusMeditacao;
             document.getElementById('status-meditacao').className = `summary-value ${classeMeditacao}`;
 
+            // Status leitura
+            let statusLeitura = leitura >= 5 ? 'Atingida!' : 'Em progresso';
+            let classeLeitura = leitura >= 5 ? 'status-good' : 'status-warning';
+            document.getElementById('status-leitura').textContent = statusLeitura;
+            document.getElementById('status-leitura').className = `summary-value ${classeLeitura}`;
+
+            // Status inglês
+            let statusIngles = ingles >= 2 ? 'Atingida!' : 'Em progresso';
+            let classeIngles = ingles >= 2 ? 'status-good' : 'status-warning';
+            document.getElementById('status-ingles').textContent = statusIngles;
+            document.getElementById('status-ingles').className = `summary-value ${classeIngles}`;
+
             // Aderência
-            const aderenciaRitual = Math.round(((estudo + corridas + meditacao) / 17) * 100) + '%';
+            const aderenciaRitual = Math.round(((estudo + corridas + meditacao + leitura + ingles) / 26) * 100) + '%';
             document.getElementById('aderencia-ritual').textContent = aderenciaRitual;
 
             // Próximo ajuste
@@ -1055,6 +1238,20 @@
                     meditacao_sex: document.getElementById('med-sex').checked ? 'Sim' : 'Não',
                     meditacao_sab: document.getElementById('med-sab').checked ? 'Sim' : 'Não',
                     meditacao_dom: document.getElementById('med-dom').checked ? 'Sim' : 'Não',
+                    leitura_seg: document.getElementById('lei-seg').checked ? 'Sim' : 'Não',
+                    leitura_ter: document.getElementById('lei-ter').checked ? 'Sim' : 'Não',
+                    leitura_qua: document.getElementById('lei-qua').checked ? 'Sim' : 'Não',
+                    leitura_qui: document.getElementById('lei-qui').checked ? 'Sim' : 'Não',
+                    leitura_sex: document.getElementById('lei-sex').checked ? 'Sim' : 'Não',
+                    leitura_sab: document.getElementById('lei-sab').checked ? 'Sim' : 'Não',
+                    leitura_dom: document.getElementById('lei-dom').checked ? 'Sim' : 'Não',
+                    ingles_seg: document.getElementById('ing-seg').checked ? 'Sim' : 'Não',
+                    ingles_ter: document.getElementById('ing-ter').checked ? 'Sim' : 'Não',
+                    ingles_qua: document.getElementById('ing-qua').checked ? 'Sim' : 'Não',
+                    ingles_qui: document.getElementById('ing-qui').checked ? 'Sim' : 'Não',
+                    ingles_sex: document.getElementById('ing-sex').checked ? 'Sim' : 'Não',
+                    ingles_sab: document.getElementById('ing-sab').checked ? 'Sim' : 'Não',
+                    ingles_dom: document.getElementById('ing-dom').checked ? 'Sim' : 'Não',
                     sono_seg: parseFloat(document.getElementById('seg-sono').value),
                     sono_ter: parseFloat(document.getElementById('ter-sono').value),
                     sono_qua: parseFloat(document.getElementById('qua-sono').value),
